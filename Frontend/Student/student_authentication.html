@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuretech software training institute | Student Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="Student_authentication">
+        <div id="login_section">
+            <div class="admin_btn">
+                <button id="login_as_admin">Admin Login</button>
+            </div>
+
+            <div id="card">
+                <header>
+                    <h1>Student Portal</h1>
+                    <p>Sign in to access your dashboard</p>
+                </header>
+                <hr>
+                <p id="email_add">Email Address</p>
+                <form action="">
+                    <input type="email" placeholder="Enter your Email" autocomplete="email">
+                    <input type="password" id="password" placeholder="Enter your Password"
+                        autocomplete="current-password">
+                </form>
+                <button id="sign_in_btn">Sign In</button>
+                <span id="forget_password">Forget Password?</span>
+            </div>
+        </div>
+
+
+        <div id="forget_section">
+            <div id="card">
+                <header>
+                    <h1>Password Reset</h1>
+                    <p>Enter your email to receive an OTP</p>
+                </header>
+                <hr>
+                <p id="email_add">Email Address</p>
+                <form action="">
+                    <input type="email" placeholder="Enter your Email" autocomplete="email">
+                </form>
+                <button id="request_otp_btn">Request OTP</button>
+                <span id="back_to_login">Back to Login</span>
+            </div>
+        </div>
+        <div id="reset_section">
+            <div id="card">
+                <header>
+                    <h1>
+                        Set New Password
+                    </h1>
+                    <p>Enter OTP & New Password</p>
+                </header>
+                <hr>
+                <form action="">
+                    <input type="email" placeholder="Enter your Email" autocomplete="email">
+                    <input type="text" id="otp_input" name="otp" placeholder="Enter 6-digit OTP"
+                        autocomplete="one-time-code" maxlength="6">
+                    <input type="password" id="new_password" placeholder="Enter new Password"
+                        autocomplete="current-password">
+                </form>
+                <button id="set_password_btn">Set Password</button>
+                <span id="resend_otp">Didn't get a OTP? Resend</span>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script>
+        const login_section = document.getElementById('login_section');
+        const forget_password = document.getElementById('forget_password');
+
+        const forget_section = document.getElementById('forget_section');
+        const back_to_login = document.getElementById('back_to_login');
+
+        const reset_section = document.getElementById('reset_section');
+
+        const sign_in_btn = document.getElementById('sign_in_btn');
+
+
+        const request_otp_btn = document.getElementById('request_otp_btn');
+
+        const set_password_btn = document.getElementById('set_password_btn')
+
+        const resend_otp = document.getElementById('resend_otp')
+
+        forget_section.style.display = 'none'
+        reset_section.style.display = 'none'
+
+        sign_in_btn.addEventListener('click', () => {
+            alert('Login Successfull!')
+        })
+
+        forget_password.addEventListener('click', () => {
+            login_section.style.display = 'none';
+            forget_section.style.display = 'block';
+
+        })
+
+        request_otp_btn.addEventListener('click', () => {
+            alert("OTP sent on your Email!")
+        });
+
+        back_to_login.addEventListener('click', () => {
+
+            login_section.style.display = 'block'
+            forget_section.style.display = 'none'
+        })
+
+
+        request_otp_btn.addEventListener('click', () => {
+            forget_section.style.display = 'none'
+            reset_section.style.display = 'block'
+        });
+
+        set_password_btn.addEventListener('click', () => {
+            alert('Password reset Successfully!')
+            login_section.style.display = 'block'
+            forget_section.style.display = 'none'
+            reset_section.style.display = 'none'
+        })
+
+        resend_otp.addEventListener('click', function () {
+            alert('OTP send on your Email!')
+        })
+    </script>
+</body>
+
+</html>
