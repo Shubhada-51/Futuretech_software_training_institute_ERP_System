@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuretech | Student Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg_color: #0b1220;
+            --navbar_bg: #101827;
+            --header_bg: #162033;
+            --card_bg: #121c2e;
+            --border: #1f2a3d;
+            --text_white: #fff;
+            --text_dim: #9aa4b2;
+            --gradient: linear-gradient(90deg, #8b5cf6, #22d3ee);
+            --sidebar_width: 240px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--bg_color); color: var(--text_white); min-height: 100vh; overflow-x: hidden; }
+
+        /* --- Fixed Top Header (Overlapping Fix) --- */
+        .header_container { display: flex; width: 100%; height: 80px; position: fixed; top: 0; z-index: 1001; }
+        .logo_box { width: var(--sidebar_width); background: var(--navbar_bg); display: flex; align-items: center; padding: 0 15px; border-bottom: 1px solid var(--border); }
+        .logo_box img { height: 45px; border-radius: 5px; }
+        .logo_box .name { margin-left: 10px; }
+        .logo_box h2 { font-size: 18px; color: #fff; }
+
+        .top_nav { flex: 1; background: var(--header_bg); display: flex; justify-content: space-between; align-items: center; padding: 0 25px; border-bottom: 1px solid var(--border); }
+        .menu_toggle { font-size: 24px; cursor: pointer; display: none; color: #fff; }
+        .profile_icon { background: var(--gradient); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; }
+
+        /* --- Sidebar Navigation --- */
+        .sidebar_nav { width: var(--sidebar_width); background: var(--navbar_bg); height: calc(100vh - 80px); position: fixed; top: 80px; left: 0; z-index: 1000; border-right: 1px solid var(--border); display: flex; flex-direction: column; justify-content: space-between; transition: 0.3s; }
+        .nav_list { display: flex; flex-direction: column; padding: 20px 10px; gap: 5px; }
+        .nav_list a { text-decoration: none; color: #fff; padding: 12px 15px; border-radius: 12px; font-size: 16px; transition: 0.3s; display: flex; align-items: center; gap: 12px; }
+        .nav_list a.active { background: var(--gradient); }
+        .logout_txt { color: #f87171; font-size: 18px; cursor: pointer; padding: 20px; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
+
+        /* --- Main Content (Alignment Fix) --- */
+        .main_container { margin-left: var(--sidebar_width); margin-top: 80px; padding: 30px; display: flex; justify-content: center; min-height: calc(100vh - 80px); }
+        .profile_wrapper { width: 100%; max-width: 900px; }
+
+        .profile-card { background: var(--card_bg); border: 1px solid var(--border); border-radius: 24px; padding: 30px; display: flex; gap: 30px; align-items: center; margin-bottom: 30px; }
+        .avatar-box { width: 130px; height: 130px; border-radius: 50%; background: var(--gradient); display: flex; align-items: center; justify-content: center; font-size: 40px; cursor: pointer; position: relative; overflow: hidden; flex-shrink: 0; }
+        .avatar-box img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .info-panel { background: var(--card_bg); border: 1px solid var(--border); border-radius: 20px; padding: 30px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .row { border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+        .row { border-bottom: 1px solid var(--border); padding-bottom: 10px; display: flex; flex-direction: column; gap: 5px; }
+        .row label { font-size: 11px; text-transform: uppercase; color: var(--text_dim); font-weight: 600; }
+        .row input { background: transparent; border: none; color: #fff; font-size: 16px; width: 100%; outline: none; }
+        .edit-btn { background: var(--gradient); border: none; padding: 12px 30px; border-radius: 12px; color: white; font-weight: 600; cursor: pointer; margin-top: 15px; }
+
+        /* --- Mobile Responsive Fix (For any mobile view) --- */
+        @media (max-width: 768px) {
+            .menu_toggle { display: block; }
+            .sidebar_nav { left: -100%; }
+            .sidebar_nav.open { left: 0; }
+            .main_container { margin-left: 0; padding: 20px 15px; }
+            .profile-card { flex-direction: column; text-align: center; }
+            .info-panel { grid-template-columns: 1fr; padding: 25px; }
+            .logo_box { width: auto; flex: 1; }
+        }
+  
+    /* 1. Header Desktop Layout */
+    .header_container { 
+        display: flex; width: 100%; height: 80px; 
+        position: fixed; top: 0; z-index: 1001; 
+        background: var(--header_bg); 
+        border-bottom: 1px solid var(--border);
+    }
+
+    /* 2. Mobile Responsive Logic (Gardi kamichya sathi) */
+    @media (max-width: 768px) {
+        /* Mobile var logo box purn pane kadhun taka */
+        .logo_box { display: none !important; } 
+        .top_nav {
+            padding: 0 15px;
+            justify-content: space-between; 
+        }
+        .menu_toggle { 
+            display: block !important; 
+            font-size: 26px;
+        }
+
+        .main_container {
+            margin-left: 0;
+            padding: 20px 15px;
+            margin-top: 80px; 
+        }
+
+        .sidebar_nav {
+            left: -100%; 
+        }
+        
+        .sidebar_nav.open {
+            left: 0; 
+        }
+    }
+</style>
+</head>
+<body>
+    <header class="header_container">
+        <div class="logo_box">
+            <img src="/frontend/future_tech_logo.png" alt="logo">
+            <div class="name"><h2>Futuretech</h2></div>
+        </div>
+
+        <div class="top_nav">
+            <div class="menu_toggle" id="menuBtn">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <div class="title">
+                <h2 style="font-size: 18px; color: #fff;">Profile Settings</h2>
+            </div>
+            <div class="profile_icon">SM</div>
+        </div>
+    </header>
+   
+    <aside class="sidebar_nav" id="sidebar">
+    <nav class="nav_list">
+        <a href="student_dashboard.html"><i class="fa-solid fa-house"></i> Dashboard</a>
+        <a href="my_domain.html"><i class="fa-solid fa-book-open"></i> My Domain</a>
+        <a href="assignments.html"><i class="fa-solid fa-file-lines"></i> Assignments</a>     
+        <a href="fee_history.html"><i class="fa-solid fa-indian-rupee-sign"></i> Fee History</a>      
+        <a href="student_profile.html" class="active"><i class="fa-solid fa-user"></i> Profile</a>
+    </nav>
+        <div class="logout_txt" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Logout</div>
+    </aside>
+
+    <main class="main_container">
+        <div class="profile_wrapper">
+            <div class="profile-card">
+                <div class="avatar-box" id="avatarBox">
+                    <img id="profileImg" style="display:none;">
+                    <span id="avatarText">SM</span>
+                    <input type="file" id="imgUpload" hidden>
+                </div>
+                <div class="user-info">
+                    <h3 id="displayName">Loading...</h3>
+                    <p id="displayEmail">loading...</p>
+                    <p id="displayDomain" style="color: #c7d2fe;">Domain: Loading...</p>
+                    <button class="edit-btn" id="editBtn">Edit Profile</button>
+                    <p id="removePhoto" style="color: #f87171; cursor: pointer; font-size: 12px; margin-top: 15px; display: none;">Remove Photo</p>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="row"><label>Student Name</label><input type="text" id="nameInput" disabled></div>
+                <div class="row"><label>Domain</label><input type="text" id="domainInput" disabled></div>
+                <div class="row"><label>Batch</label><input type="text" id="batchInput" disabled></div>
+                <div class="row"><label>Contact Number</label><input type="text" id="contactInput" disabled></div>
+                <div class="row"><label>Student E-Mail</label><input type="text" id="emailInput" disabled></div>
+                <div class="row"><label>Account Status</label><input type="text" value="Active" disabled style="color: #4ade80; font-weight: bold;"></div>
+            </div>
+        </div>
+    </main>
+
+<script>
+    const menuBtn = document.getElementById("menuBtn");
+    const sidebar = document.getElementById("sidebar");
+    menuBtn.onclick = () => sidebar.classList.toggle("open");
+
+    const editBtn = document.getElementById("editBtn");
+    const inputs = [
+        document.getElementById("nameInput"),
+        document.getElementById("domainInput"),
+        document.getElementById("batchInput"),
+        document.getElementById("contactInput"),
+        document.getElementById("emailInput")
+    ];
+    let isEditing = false;
+    let currentEmail = ""; 
+
+    function loadStudentProfile() {
+        fetch("/FuturetechAdmin/StudentServlet")
+        .then(res => res.json())
+        .then(data => {
+            if(data.email) {
+                currentEmail = data.email; 
+                document.getElementById("displayName").innerText = data.name;
+                document.getElementById("displayEmail").innerText = data.email;
+                document.getElementById("displayDomain").innerText = "Domain: " + data.domain;
+
+                inputs[0].value = data.name;
+                inputs[1].value = data.domain;
+                inputs[2].value = data.batch;
+                inputs[3].value = data.contact;
+                inputs[4].value = data.email;
+            }
+        });
+    }
+
+    editBtn.onclick = () => {
+        isEditing = !isEditing;
+        if (isEditing) {
+        	inputs.forEach(i => { i.disabled = false; i.parentElement.style.borderBottom = "1px solid #8b5cf6"; });
+            editBtn.innerText = "Save Profile";
+            editBtn.style.background = "#059669"; 
+        } else {
+            const params = new URLSearchParams();
+            params.append("oldEmail", currentEmail); 
+            params.append("name", inputs[0].value);  
+            params.append("domain", inputs[1].value); 
+            params.append("batch", inputs[2].value);
+            params.append("contact", inputs[3].value);
+            params.append("email", inputs[4].value);
+
+            fetch("/FuturetechAdmin/StudentServlet", {
+                method: "POST",
+                body: params,
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            })
+            .then(res => res.text()).then(msg => {
+                if(msg.trim() === "success") { alert("✅ Profile Updated!"); loadStudentProfile(); }
+                else { alert("❌ Update Failed!"); }
+            });
+            inputs.forEach(input => input.disabled = true);
+            editBtn.innerText = "Edit Profile";
+            editBtn.style.background = "var(--gradient)";
+        }
+    };
+
+    // Photo logic with REMOVE FIX
+    const avatarBox = document.getElementById("avatarBox");
+    const imgUpload = document.getElementById("imgUpload");
+    const removeBtn = document.getElementById("removePhoto");
+
+    avatarBox.onclick = () => imgUpload.click();
+    
+    imgUpload.onchange = function() {
+        const reader = new FileReader();
+        reader.onload = () => {
+            localStorage.setItem("ft_profile_photo", reader.result);
+            location.reload(); 
+        };
+        reader.readAsDataURL(this.files[0]);
+    };
+
+    // STOP PROPAGATION used to fix Remove Photo
+    removeBtn.onclick = (e) => {
+        e.stopPropagation(); 
+        localStorage.removeItem("ft_profile_photo");
+        location.reload();
+    };
+
+    window.onload = () => {
+        loadStudentProfile();
+        const savedImg = localStorage.getItem("ft_profile_photo");
+        if (savedImg) {
+            const profileImg = document.getElementById("profileImg");
+            profileImg.src = savedImg;
+            profileImg.style.display = "block";
+            document.getElementById("avatarText").style.display = "none";
+            removeBtn.style.display = "block";
+        }
+    };
+</script>
+</body>
+</html>
